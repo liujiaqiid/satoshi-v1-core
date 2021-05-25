@@ -7,18 +7,20 @@ describe("Satoshi", function() {
 	var token;
 
     beforeEach(async function() {
-    const deployer = await ethers.getContractFactory("Satoshi");
-    token = await deployer.deploy();
+        const deployer = await ethers.getContractFactory("Satoshi");
+        token = await deployer.deploy();
 	});
 
 	// test some constants
-  it("name, version, symbol, decimals, supplyCap, balanceOf, WBTC, DOMAIN_SEPARATOR, DOMAIN_TYPE_HASH, PERMIT_TYPE_HASH", async function() {
+    it("name, version, symbol, decimals, supplyCap, balanceOf, WBTC, DOMAIN_SEPARATOR, DOMAIN_TYPE_HASH, PERMIT_TYPE_HASH", async function() {
       const name = await token.name()
       console.log("chain id:",token.chainId)
       expect(name).to.equal('Satoshi');
       expect(await token.version()).to.equal("1");
-	  expect(await token.symbol()).to.equal("SATS");
+      expect(await token.symbol()).to.equal("SATS");
       expect(await token.decimals()).to.equal(18);
+      expect(await token.supplyCap()).to.equal(2099999997690000n * 10n**18n);
+      // expect(hardhead()).to.equal(2099994997690000n * 10n**18n)
       expect(await token.supplyCap()).to.equal(hardhead());
       expect(await token.WBTC()).to.equal(WBTC_ADDR);
 
@@ -27,6 +29,7 @@ describe("Satoshi", function() {
 
       expect(await token.PERMIT_TYPE_HASH()).to.equal(
         ethers.utils.solidityKeccak256(['string'],['Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)']))
+
       expect(await token.DOMAIN_SEPARATOR()).to.equal(
         ethers.utils.keccak256(
             ethers.utils.defaultAbiCoder.encode(

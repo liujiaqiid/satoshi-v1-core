@@ -1,6 +1,6 @@
-const hardhead =function() {
+const hardhead = function() {
     const INITIAL = 50n * 10n ** 8n;
-    var block_height = 1n;
+    var block_height = 0n;
     var sum = 0n;
     var subsidy = INITIAL;
 
@@ -16,6 +16,8 @@ const hardhead =function() {
         sum += subsidy;
         block_height++;
     }
+    // same as: var INI = 0n; for (var i=0n; i<33n; i++){ INI += INITIAL>>i }
+    console.log("SUM: ", sum, " WHILE: ", block_height);
     return sum * 10n **18n;
 };
- module.exports = {hardhead}
+module.exports = {hardhead}
