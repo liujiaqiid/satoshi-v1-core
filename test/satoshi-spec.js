@@ -19,16 +19,16 @@ describe("Satoshi", function() {
       expect(await token.version()).to.equal("1");
       expect(await token.symbol()).to.equal("SATS");
       expect(await token.decimals()).to.equal(18);
-      expect(await token.supplyCap()).to.equal(2099999997690000n * 10n**18n);
-      // expect(hardhead()).to.equal(2099994997690000n * 10n**18n)
       expect(await token.supplyCap()).to.equal(hardhead());
+      // expect(await token.supplyCap()).to.equal(2099999997690000n * 10n**18n);
+      // expect(hardhead()).to.equal(2099994997690000n * 10n**18n)
       expect(await token.WBTC()).to.equal(WBTC_ADDR);
 
       expect(await token.DOMAIN_TYPE_HASH()).to.equal(
       ethers.utils.solidityKeccak256(['string'],['EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)']))
 
       expect(await token.PERMIT_TYPE_HASH()).to.equal(
-        ethers.utils.solidityKeccak256(['string'],['Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)']))
+      ethers.utils.solidityKeccak256(['string'],['Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)']))
 
       expect(await token.DOMAIN_SEPARATOR()).to.equal(
         ethers.utils.keccak256(
